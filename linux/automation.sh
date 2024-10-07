@@ -9,9 +9,8 @@ fi
 user=$1
 repo_name=$2
 
-version=$(docker images | grep -i webserver | awk '{ print $2 }' | head -n1)
+version=$(docker images | grep -i $repo_name | awk '{ print $2 }' | head -n1)
 new_version=$(echo $version | awk -F. '{print $1"."$2"."$3+1}')
-#echo "Building new version: $new_version"
 
 new_image=$user/$repo_name:$new_version
 echo "Building image: $new_image..."

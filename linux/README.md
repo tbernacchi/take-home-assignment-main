@@ -26,3 +26,8 @@ Please, provide us with your `script.yml` and `new-app.yaml` files;
 ### Next steps?
 
 Once you complete this task, send us your assignment so we can evaluate it;
+
+# 
+
+You have to pass the `user` and `repo_name` from your container registry on `automation.sh`;    
+i.e: `./automation.sh ambrosiaaaaa webserver`  
