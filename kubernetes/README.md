@@ -33,5 +33,5 @@ Once you complete this task, you can proceed to the [Terraform](../terraform) ta
 ### Usage
 
 You have to set your database connection settings in [database](database) folder first, after that `kubectl apply -f database`;  
-Deploy the resources `kubectl apply -f .`
-
+Update the [image](app.yaml) on `app.yaml`  
+Deploy the resources `kubectl apply -f .`  
