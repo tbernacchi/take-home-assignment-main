@@ -23,6 +23,8 @@ Please, provide us with the `Dockerfile` you created. Your `Dockerfile` is suppo
 Once you complete this task, you can proceed to the [Kubernetes](../kubernetes) task;
 
 
-### How to 
-`docker buildx build --platform linux/arm64 -t <USER>/<REPO>:v0.0.1 --push .`
-`docker exec -it <CONTAINER_ID> curl -o /dev/null -s -w "%{http_code}\n" localhost:8080` 
+### [How to]
+```bash
+docker buildx build --platform linux/arm64 -t <USER>/<REPO>:v0.0.1 --push .
+docker exec -it <CONTAINER_ID> curl -o /dev/null -s -w "%{http_code}\n" localhost:8080
+```
