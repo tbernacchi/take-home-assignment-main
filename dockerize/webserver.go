@@ -1,9 +1,9 @@
 package main
 
 import (
-	"dockerize/webserver/articlehandler"
 	"bufio"
 	"database/sql"
+	"dockerize/webserver/articlehandler"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,23 +14,32 @@ import (
 )
 
 func init() {
-	if _, noLog := os.Stat("/log.txt"); os.IsNotExist(noLog) {
-		newLog, err := os.Create("/log.txt")
+	if _, noLog := os.Stat("/tmp/log.txt"); os.IsNotExist(noLog) {
+		newLog, err := os.Create("/tmp/log.txt")
 		if err != nil {
 			log.Fatal(err)
 		}
 		newLog.Close()
 	}
-	dbString := readConfig("server.confi")
-	var err error
-	db, err := sql.Open("mysql", dbString)
+
+	//Connection details
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	//DSN
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
+	db, err := sql.Open("mysql", dsn)
+
 	check(err)
 	err = db.Ping()
 	check(err)
 	dbChecker := time.NewTicker(time.Minute)
 	articlehandler.PassDataBase(db)
 	go checkDB(dbChecker, db)
-	
+
 }
 
 func main() {
@@ -54,7 +63,7 @@ func readConfig(s string) string {
 
 func check(err error) {
 	if err != nil {
-		errorLog, osError := os.OpenFile("/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		errorLog, osError := os.OpenFile("/tmp/log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if osError != nil {
 			log.Fatal(err)
 		}
@@ -83,4 +92,3 @@ func checkDB(t *time.Ticker, db *sql.DB) {
 		}
 	}
 }
-
