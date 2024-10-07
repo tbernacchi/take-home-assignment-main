@@ -30,3 +30,5 @@ docker buildx build --platform linux/arm64 -t <USER>/<REPO>:v0.0.1 --push .
 docker run -it -d -p 8080:8080 <USER>/<REPO>:v0.0.1
 docker exec -it <CONTAINER_ID> curl -o /dev/null -s -w "%{http_code}\n" localhost:8080
 ```
+
+Be attention to your archictecture: `--platform linux/arm64`.
