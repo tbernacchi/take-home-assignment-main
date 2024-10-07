@@ -23,3 +23,14 @@ Please, provide us with the `terraform.state` file that was created when you ran
 ### Next steps?
 
 Once you complete this task, you can proceed to the [Linux](../linux) task;
+
+#
+
+### Usage
+
+```
+terraform init 
+terraform plan 
+terraform apply
+```
+
