@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webserver
+  namespace: webserver
+data:
+  user: "user"
+  db_host: "my-release-mysql.db.svc.cluster.local"
+  db_port: "3306"
+  db_name: "blog"

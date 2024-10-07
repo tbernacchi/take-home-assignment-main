@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webserver
+  name: webserver
+  namespace: stackio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      initContainers:
+      - name: initcontainer
+        image: busybox:1.28
+        command: ['sh', '-c', "sleep 30"]
+      containers:
+      - name: webserver
+        image: [<YOUR_IMAGE> Task 1](../dockerize)  # Replace with your image
+        env:
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: webserver
+                key: user
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: webserver
+                key: db_host
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: webserver
+                key: db_port
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: webserver
+                key: db_name
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: pass
+                key: db_pass
+        securityContext:
+          runAsUser: 0 # root
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "touch /tmp/healthy; sleep 10"]
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "rm -f /tmp/healthy; sleep 5"]
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/healthy
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/healthy
+          initialDelaySeconds: 10
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver
+  name: webserver
+  namespace: stackio
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: webserver
+  type: ClusterIP
+  

@@ -27,3 +27,11 @@ Please, provide us with a file named `app.yaml` you are going to create. Your `a
 ### Next steps?
 
 Once you complete this task, you can proceed to the [Terraform](../terraform) task;
+
+# 
+
+### Usage
+
+You have to set your database connection settings in [database](database) folder first, after that `kubectl apply -f database`;
+Deploy the resources `kubectl apply -f .`
+
