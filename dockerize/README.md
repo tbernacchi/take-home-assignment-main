@@ -23,7 +23,7 @@ Please, provide us with the `Dockerfile` you created. Your `Dockerfile` is suppo
 Once you complete this task, you can proceed to the [Kubernetes](../kubernetes) task;
 
 
-### [How to]
+### Usage
 ```bash
 docker buildx build --platform linux/arm64 -t <USER>/<REPO>:v0.0.1 --push .
 docker run -it -d -p 8080:8080 <USER>/<REPO>:v0.0.1
