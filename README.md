@@ -1,4 +1,4 @@
-# This is a candidate assessment assignment from stack.io
+# This is a candidate assessment assignment
 
 # Guideline
 
