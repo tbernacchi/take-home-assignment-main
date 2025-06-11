@@ -200,46 +200,7 @@ The `automation.sh` script is your Swiss Army knife for:
   * Fast recovery options;
   * Easy troubleshooting;
 
-### Pipeline Tips;
-
-1. **Local Development**;
-   - Use `minikube` for local testing;
-   - Keep a terminal running `minikube tunnel`;
-   - Use `kubectl port-forward` to test services;
-
-2. **Troubleshooting**;
-   - `docker logs` for container debugging;
-   - `kubectl logs <pod>` for K8s logs;
-   - `kubectl describe pod <pod>` for events/errors;
-   - `terraform show` to see current state;
-
-3. **Best Practices**;
-   - Always use version tags (avoid `latest`);
-   - Keep secrets in environment variables;
-   - Implement container health checks;
-   - Backup Terraform state;
-
-4. **Useful Commands**;
-   ```bash
-   # Cleanup resources
-   kubectl delete -f .
-   terraform destroy
-   
-   # View logs
-   kubectl logs -f deployment/app
-   
-   # Scale application
-   kubectl scale deployment/app --replicas=3
-   
-   # Rollback deployment
-   kubectl rollout undo deployment/app
-   ```
-
-## Submission;
-
-Please follow the submission guidelines provided in each task directory;
-
 ## Notes;
 
-- Each task has its own detailed README with specific requirements;
-- Tasks are designed to be completed sequentially;
+- Check each task's README for details;
+- Follow tasks in sequence;
