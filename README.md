@@ -48,30 +48,35 @@
 Here's how all tasks connect in a real-world CI/CD pipeline:
 
 ```mermaid
-graph LR
-    A["Git Push"] --> B["Build & Test"]
-    B --> C["Docker Build"]
-    C --> D["Docker Push"]
-    D --> E["Terraform Plan"]
-    E --> F["Terraform Apply"]
-    F --> G["K8s Deploy"]
-    G --> H["Health Check"]
+flowchart LR
+    classDef task1 fill:#e1f5fe,stroke:#01579b
+    classDef task2 fill:#f3e5f5,stroke:#4a148c
+    classDef task3 fill:#e8f5e9,stroke:#1b5e20
 
-    subgraph "Task 1: Dockerize"
-    B
-    C
-    D
+    A([Git Push]) --> B[Build]
+    B --> C[Docker Image]
+    C --> D[Registry]
+    D --> E[Infrastructure]
+    E --> F[K8s Deploy]
+    F --> G([Running App])
+
+    subgraph Task1 [Task 1: Docker]
+        B
+        C
+        D
     end
 
-    subgraph "Task 3: Terraform"
-    E
-    F
+    subgraph Task3 [Task 3: Terraform]
+        E
     end
 
-    subgraph "Task 2: Kubernetes"
-    G
-    H
+    subgraph Task2 [Task 2: K8s]
+        F
     end
+
+    class B,C,D task1
+    class E task3
+    class F task2
 ```
 
 ### Pipeline Steps in Practice;
@@ -176,50 +181,24 @@ graph LR
 
 ### Manual Usage Scenarios;
 
-The `automation.sh` script serves as a Swiss Army knife for various manual operations:
+The `automation.sh` script is your Swiss Army knife for:
 
-* **Local Development**;
-  * Quick iterations during code changes;
-  * Testing new configurations;
-  * Local environment setup;
-  * Avoiding repetitive command typing;
+* **Development & Testing**;
+  * Local environment setup and testing;
+  * Quick iterations and deployments;
+  * Feature branch validation;
 
-* **Manual Testing**;
-  * Staging environment deployments;
-  * Feature branch testing;
-  * Integration testing;
-  * Quick proof of concept deployments;
+* **Operations**;
+  * Emergency hotfixes;
+  * Quick rollbacks;
+  * Version management;
+  * State verification;
 
-* **Emergency Situations**;
-  * CI/CD pipeline issues;
-  * Urgent hotfix deployments;
-  * Quick rollbacks when needed;
-  * Production emergency fixes;
-
-* **Debugging & Troubleshooting**;
-  * Testing different image versions;
-  * Comparing K8s configurations;
-  * Validating manifest changes;
-  * Environment state verification;
-
-* **Release Management**;
-  * Manual release preparations;
-  * Version tagging control;
-  * Staged rollouts;
-  * Canary deployments setup;
-
-* **Development Team Support**;
-  * Onboarding new developers;
-  * Training and demonstrations;
-  * Environment setup assistance;
-  * Deployment verification;
-
-* **Key Benefits**;
-  * Reduces human error in repetitive tasks;
-  * Provides consistent deployment process;
-  * Enables quick recovery options;
-  * Maintains deployment history;
-  * Allows for controlled manual interventions;
+* **Benefits**;
+  * Reduces manual errors;
+  * Consistent process;
+  * Fast recovery options;
+  * Easy troubleshooting;
 
 ### Pipeline Tips;
 
