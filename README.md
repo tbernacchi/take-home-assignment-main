@@ -43,6 +43,62 @@
 3. Complete the tasks in order, as they build upon each other;
 4. Follow best practices for each technology used;
 
+## CI/CD Pipeline Overview;
+
+The tasks in this assessment represent different stages of a complete CI/CD pipeline. Here's how they connect:
+
+```mermaid
+graph LR
+    A["Git Push"] --> B["Build & Test"]
+    B --> C["Docker Build"]
+    C --> D["Docker Push"]
+    D --> E["Terraform Plan"]
+    E --> F["Terraform Apply"]
+    F --> G["K8s Deploy"]
+    G --> H["Health Check"]
+
+    subgraph "Task 1: Dockerize"
+    B
+    C
+    D
+    end
+
+    subgraph "Task 3: Terraform"
+    E
+    F
+    end
+
+    subgraph "Task 2: Kubernetes"
+    G
+    H
+    end
+```
+
+### Pipeline Stages;
+
+1. **Build & Test (Task 1)**;
+   - Code checkout;
+   - Unit testing;
+   - Code analysis;
+   - Docker image building;
+
+2. **Infrastructure (Task 3)**;
+   - Terraform planning;
+   - Infrastructure provisioning;
+   - K8s cluster preparation;
+
+3. **Deployment (Task 2)**;
+   - K8s manifest application;
+   - Service deployment;
+   - Health verification;
+
+4. **Automation (Task 4)**;
+   - The `linux/automation.sh` script ties everything together:;
+     - Automated image building and tagging;
+     - Dynamic K8s manifest updates;
+     - Deployment state verification;
+     - Can be used in both local development and CI/CD;
+
 ## Submission;
 
 Please follow the submission guidelines provided in each task directory;
